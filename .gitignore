@@ -1,0 +1,38 @@
+# Build
+**/dist/
+**/build/
+**/out/
+*.tsbuildinfo
+.eslintcache
+*.vsix
+
+# misc
+.DS_Store
+
+# dependencies
+**/.yarn/*
+!**/.yarn/releases
+!**/.yarn/sdks
+!**/.yarn/plugins
+**/node_modules
+**/.pnp
+**/.pnp.js
+
+# testing
+**/coverage
+
+# framework generated files
+**/.firebase
+**/.next
+.monorail
+.codegen
+.vscode/pnpify
+.docusaurus
+.cache-loader
+workspaces.json
+
+# env
+.env.local
+
+# project generated files
+packages/wiki/private-docs
