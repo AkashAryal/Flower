@@ -3,15 +3,14 @@ import React, { ReactElement, useState } from 'react';
 import { signIn } from '../../actions/auth/authActions';
 
 const Login = (): ReactElement => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
+  const [error, setError] = useState('');
   return (
     <div>
       LOGIN
-      <input type="email" placeholder="email" onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
-      <button type="submit" onClick={() => signIn(email, password)}></button>
+      <button type="submit" onClick={() => signIn(setError)}>
+        Login
+      </button>
+      {error && <p>{`Authentication Failed: ${error}`}</p>}
     </div>
   );
 };

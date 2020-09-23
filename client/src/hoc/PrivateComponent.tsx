@@ -5,7 +5,7 @@ import router from 'next/router';
 import firebase from '../fbConfig';
 
 // eslint-disable-next-line import/prefer-default-export
-export const withAuth = (Component) => {
+export const withAuth = (Component: any) => {
   // eslint-disable-next-line react/display-name
   return class extends React.Component<null, { status: string }> {
     constructor(props: null) {
