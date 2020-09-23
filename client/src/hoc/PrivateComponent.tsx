@@ -5,6 +5,7 @@ import router from 'next/router';
 import firebase from '../fbConfig';
 
 // eslint-disable-next-line import/prefer-default-export
+// not sure what the type would be
 export const withAuth = (Component: any) => {
   // eslint-disable-next-line react/display-name
   return class extends React.Component<null, { status: string }> {
@@ -16,7 +17,7 @@ export const withAuth = (Component: any) => {
     }
     componentDidMount() {
       firebase.auth().onAuthStateChanged((authUser) => {
-        console.log('autthUser', authUser);
+        console.log('authUser', authUser);
         if (authUser) {
           this.setState({
             status: 'SIGNED_IN',
