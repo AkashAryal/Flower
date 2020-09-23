@@ -24,15 +24,10 @@
 # framework generated files
 **/.firebase
 **/.next
-.monorail
-.codegen
-.vscode/pnpify
-.docusaurus
 .cache-loader
-workspaces.json
 
 # env
 .env.local
 
-# project generated files
-packages/wiki/private-docs
+# secrets
+*-service-account.json

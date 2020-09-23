@@ -4,6 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "start:nlp-example": "GOOGLE_APPLICATION_CREDENTIALS=flower-service-account.json node dist/nlp-example.js",
     "compile": "tsc"
+  },
+  "dependencies": {
+    "@google-cloud/language": "^4.1.1"
   }
 }
