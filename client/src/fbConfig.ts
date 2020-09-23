@@ -1,5 +1,5 @@
 import firebase from 'firebase/app';
-// import 'firebase/firestore';
+import 'firebase/firestore';
 import 'firebase/auth';
 
 const firebaseConfig = {
@@ -13,7 +13,9 @@ const firebaseConfig = {
   measurementId: 'G-HQFPM48TK8',
 };
 
-firebase.initializeApp(firebaseConfig);
-firebase.firestore();
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+  firebase.firestore();
+}
 
 export default firebase;
