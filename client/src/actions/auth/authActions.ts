@@ -26,4 +26,4 @@ export const hasIRB = (): boolean => {
 
   // for now return true;
   return true;
-}
+};
