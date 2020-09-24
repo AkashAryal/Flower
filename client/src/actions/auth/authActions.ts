@@ -20,3 +20,10 @@ export const signIn = (setError: React.Dispatch<React.SetStateAction<string>>): 
 export const logout = (): void => {
   firebase.auth().signOut();
 };
+
+export const hasIRB = (): boolean => {
+  // use firebase to see if user has IRB on file.
+
+  // for now return true;
+  return true;
+}
