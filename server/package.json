@@ -1,13 +1,16 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
+    "start": "GOOGLE_APPLICATION_CREDENTIALS=flower-service-account.json firebase emulators:start",
     "start:nlp-example": "GOOGLE_APPLICATION_CREDENTIALS=flower-service-account.json node dist/nlp-example.js",
     "compile": "tsc"
   },
   "dependencies": {
-    "@google-cloud/language": "^4.1.1"
+    "@google-cloud/language": "^4.1.1",
+    "firebase-admin": "^9.2.0",
+    "firebase-functions": "^3.11.0"
   }
 }
