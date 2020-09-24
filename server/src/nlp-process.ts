@@ -1,6 +1,6 @@
 import language from '@google-cloud/language';
 
-import { MutableDocumentInterestVector, DocumentInterestVector } from './types';
+import { MutableDocumentInterestVector, DocumentInterestVector } from './interest-vector';
 
 const GCLOUD_NLP_CLIENT = new language.LanguageServiceClient();
 
