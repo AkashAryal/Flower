@@ -11,9 +11,7 @@ export const signIn = (setError: React.Dispatch<React.SetStateAction<string>>): 
       firebase
         .auth()
         .signInWithPopup(provider)
-        .then(() => console.log('user logged in'))
         .catch((e) => {
-          console.log('error', e);
           setError(e.message);
         });
     });

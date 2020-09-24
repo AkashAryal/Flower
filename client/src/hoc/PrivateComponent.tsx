@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 
 import router from 'next/router';
@@ -5,8 +6,10 @@ import router from 'next/router';
 import firebase from '../fbConfig';
 
 // eslint-disable-next-line import/prefer-default-export
-// not sure what the type would be
-export const withAuth = (Component: any) => {
+// not sure what the type would be for Component. Anything i put gets an error in
+// line 38.
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+const withAuth = (Component: any) => {
   // eslint-disable-next-line react/display-name
   return class extends React.Component<null, { status: string }> {
     constructor(props: null) {
@@ -17,7 +20,6 @@ export const withAuth = (Component: any) => {
     }
     componentDidMount() {
       firebase.auth().onAuthStateChanged((authUser) => {
-        console.log('authUser', authUser);
         if (authUser) {
           this.setState({
             status: 'SIGNED_IN',
