@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
+import PrivateComponent from '../components/PrivateComponent';
 import firebase from '../fbConfig';
-import PrivateComponent from '../hoc/PrivateComponent';
 
 const HomePage = (): ReactElement => {
   const [basicUserInformation, setBasicUserInformation] = useState<
@@ -19,6 +19,7 @@ const HomePage = (): ReactElement => {
     <PrivateComponent>
       <>
         <div>Home Page</div>
+        <button onClick={() => firebase.auth().signOut()}>Log out</button>
         {basicUserInformation == null ? (
           <div>Loading...</div>
         ) : (
