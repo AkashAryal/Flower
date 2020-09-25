@@ -10,7 +10,7 @@ const Profile = (): ReactElement => {
   const options: { name: string; link: string }[] = [
     { name: 'Scheduled Studies', link: '/scheduled-studies' },
     { name: 'My studies', link: '/my-studies' },
-    { name: 'My Profile', link: '/my-profile' },
+    { name: 'My Profile', link: '/about-me' },
     { name: 'IRB Eligibility', link: '/irb-eligibility' },
   ];
 
