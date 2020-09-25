@@ -2,7 +2,12 @@ import React, { ReactElement } from "react";
 
 import Link from 'next/link';
 
+import { useUser } from '../hooks/user';
+
+
 const Profile = (): ReactElement => {
+  const user = useUser();
+
   const options: { name: string, link: string }[] = [
     { name: "Scheduled Studies", link: "/scheduled-studies" },
     { name: "My studies", link: "/my-studies" },
@@ -15,7 +20,9 @@ const Profile = (): ReactElement => {
       <h1>My Profile</h1>
       <img src="https://i.stack.imgur.com/34AD2.jpg" alt="profile" />
       <br />
-
+      {
+        <div>Hello {user.displayName} <br /><br /></div>
+      }
       {
         options.map(o => {
           return (
