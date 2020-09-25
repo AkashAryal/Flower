@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react';
 
 import { hasIRB } from '../../actions/auth/authActions';
-import PrivateComponent from '../../hoc/PrivateComponent';
+import PrivateComponent from '../../components/PrivateComponent';
 
 const CreateStudy = (): ReactElement => {
   const [projectName, setProjectName] = useState('');

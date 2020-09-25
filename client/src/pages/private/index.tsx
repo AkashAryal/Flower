@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 
 import { logout } from '../../actions/auth/authActions';
-import PrivateComponent from '../../hoc/PrivateComponent';
+import PrivateComponent from '../../components/PrivateComponent';
 
 const SuperSecretRoute = (): ReactElement => {
   return (
