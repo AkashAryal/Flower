@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 
-import { hasIRB } from '../../actions/auth/authActions';
+import { hasIRB } from '../actions/auth/authActions';
 
 const CreateStudy = (): ReactElement => {
   const [projectName, setProjectName] = useState('');
