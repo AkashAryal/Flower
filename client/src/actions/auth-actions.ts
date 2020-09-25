@@ -1,4 +1,4 @@
-import firebase from '../../fbConfig';
+import firebase from '../fbConfig';
 
 // eslint-disable-next-line import/prefer-default-export
 const provider = new firebase.auth.GoogleAuthProvider();

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import { logout } from '../actions/auth/authActions';
+import { logout } from '../actions/auth-actions';
 
 const SuperSecretRoute = (): ReactElement => {
   return (
