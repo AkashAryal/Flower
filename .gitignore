@@ -25,9 +25,16 @@
 **/.firebase
 **/.next
 .cache-loader
+*.log
 
 # env
 .env.local
 
 # secrets
 *-service-account.json
+
+# deployment
+server/deployment-template/*
+!server/deployment-template/package.json
+!server/deployment-template/.firebaserc
+!server/deployment-template/firebase.json
