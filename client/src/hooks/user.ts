@@ -1,10 +1,5 @@
 import { atom, useRecoilState } from 'recoil';
 
-export type AppUser = {
-  readonly displayName: string;
-  readonly email: string;
-};
-
 const userState = atom<AppUser | null>({
   key: 'user',
   default: null,
