@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import { logout } from '../../actions/auth/authActions';
-import withAuth from '../../hoc/PrivateComponent';
+import PrivateComponent from '../../hoc/PrivateComponent';
 
-const SuperSecretRoute = () => {
+const SuperSecretRoute = (): ReactElement => {
   return (
-    <div>
-      SuperSecretRoute
-      <button onClick={logout}>Logout</button>
-    </div>
+    <PrivateComponent>
+      <div>
+        SuperSecretRoute
+        <button onClick={logout}>Logout</button>
+      </div>
+    </PrivateComponent>
   );
 };
 
-export default withAuth(SuperSecretRoute);
+export default SuperSecretRoute;
