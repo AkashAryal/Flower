@@ -1,6 +1,6 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
-import { signIn } from '../actions/auth/authActions';
+import { signIn } from '../actions/auth-actions';
 import firebase from '../fbConfig';
 import { useSetUser } from '../hooks/user';
 
