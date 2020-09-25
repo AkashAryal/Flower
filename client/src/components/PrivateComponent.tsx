@@ -2,6 +2,7 @@ import React, { ReactElement, useState, useEffect } from 'react';
 
 import { signIn } from '../actions/auth/authActions';
 import firebase from '../fbConfig';
+import { useSetUser } from '../hooks/user';
 
 const Login = (): ReactElement => {
   const [error, setError] = useState('');
@@ -18,16 +19,20 @@ const Login = (): ReactElement => {
 
 const PrivateComponent = ({ children }: { readonly children: ReactElement }): ReactElement => {
   const [status, setStatus] = useState<'LOADING' | 'SIGNED_IN' | 'SIGNED_OUT'>('LOADING');
+  const setUser = useSetUser();
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((authUser) => {
       if (authUser) {
+        const { displayName, email } = authUser;
+        if (displayName == null || email == null) throw new Error('Impossible for google user');
+        setUser({ displayName, email });
         setStatus('SIGNED_IN');
       } else {
         setStatus('SIGNED_OUT');
       }
     });
-  }, []);
+  }, [setUser]);
 
   if (status === 'LOADING') {
     return <h1>Loading ......</h1>;
