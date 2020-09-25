@@ -8,6 +8,7 @@
 type AppUser = {
   readonly displayName: string;
   readonly email: string;
+  readonly profilePicture: string;
 };
 
 type AppStudy = {

@@ -24,9 +24,15 @@ const PrivateComponent = ({ children }: { readonly children: ReactElement }): Re
   useEffect(() => {
     firebase.auth().onAuthStateChanged((authUser) => {
       if (authUser) {
-        const { displayName, email } = authUser;
-        if (displayName == null || email == null) throw new Error('Impossible for google user');
-        setUser({ displayName, email });
+        const { displayName, email, photoURL } = authUser;
+        if (displayName == null || email == null) {
+          throw new Error('Impossible for google user');
+        }
+        setUser({
+          displayName,
+          email,
+          profilePicture: photoURL ?? 'https://i.stack.imgur.com/34AD2.jpg',
+        });
         setStatus('SIGNED_IN');
       } else {
         setStatus('SIGNED_OUT');

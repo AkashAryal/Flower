@@ -17,7 +17,7 @@ const Profile = (): ReactElement => {
   return (
     <div style={{ textAlign: 'center' }}>
       <h1>My Profile</h1>
-      <img src="https://i.stack.imgur.com/34AD2.jpg" alt="profile" />
+      <img src={user.profilePicture} alt="profile" />
       <br />
       {
         <div>
