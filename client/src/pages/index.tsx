@@ -1,6 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
-import PrivateComponent from '../components/PrivateComponent';
 import firebase from '../fbConfig';
 
 const HomePage = (): ReactElement => {
@@ -16,19 +15,17 @@ const HomePage = (): ReactElement => {
   }, []);
 
   return (
-    <PrivateComponent>
-      <>
-        <div>Home Page</div>
-        <button onClick={() => firebase.auth().signOut()}>Log out</button>
-        {basicUserInformation == null ? (
-          <div>Loading...</div>
-        ) : (
-          <div>
-            You are {basicUserInformation.name} with email: {basicUserInformation.email}.
-          </div>
-        )}
-      </>
-    </PrivateComponent>
+    <div>
+      <div>Home Page</div>
+      <button onClick={() => firebase.auth().signOut()}>Log out</button>
+      {basicUserInformation == null ? (
+        <div>Loading...</div>
+      ) : (
+        <div>
+          You are {basicUserInformation.name} with email: {basicUserInformation.email}.
+        </div>
+      )}
+    </div>
   );
 };
 

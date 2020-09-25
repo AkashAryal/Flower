@@ -1,7 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 
 import { hasIRB } from '../../actions/auth/authActions';
-import PrivateComponent from '../../components/PrivateComponent';
 
 const CreateStudy = (): ReactElement => {
   const [projectName, setProjectName] = useState('');
@@ -38,44 +37,42 @@ const CreateStudy = (): ReactElement => {
     // some backend stuff
   };
   return (
-    <PrivateComponent>
-      <div style={{ textAlign: 'center' }}>
-        {error && <div>{error}</div>}
-        <img src="https://i.imgur.com/SR0YwEv.jpg" alt="" />
-        <br />
-        <label htmlFor="fname">Project Name</label>
-        <br />
-        <input type="text" onChange={(e) => setProjectName(e.target.value)} />
-        <br />
+    <div style={{ textAlign: 'center' }}>
+      {error && <div>{error}</div>}
+      <img src="https://i.imgur.com/SR0YwEv.jpg" alt="" />
+      <br />
+      <label htmlFor="fname">Project Name</label>
+      <br />
+      <input type="text" onChange={(e) => setProjectName(e.target.value)} />
+      <br />
 
-        <label htmlFor="lname">Participation Duration</label>
-        <br />
-        <input type="text" onChange={(e) => setDuration(e.target.value)} />
-        <br />
+      <label htmlFor="lname">Participation Duration</label>
+      <br />
+      <input type="text" onChange={(e) => setDuration(e.target.value)} />
+      <br />
 
-        <label htmlFor="lname">Rewards Type</label>
-        <br />
-        <input type="text" onChange={(e) => setRewards(e.target.value)} />
-        <br />
+      <label htmlFor="lname">Rewards Type</label>
+      <br />
+      <input type="text" onChange={(e) => setRewards(e.target.value)} />
+      <br />
 
-        <label htmlFor="lname">Avaliable Times</label>
-        <br />
-        <input type="text" onChange={(e) => setAvaliableTimes(e.target.value)} />
-        <br />
+      <label htmlFor="lname">Avaliable Times</label>
+      <br />
+      <input type="text" onChange={(e) => setAvaliableTimes(e.target.value)} />
+      <br />
 
-        <label htmlFor="subject">Description</label>
-        <br />
-        <textarea onChange={(e) => setDescription(e.target.value)}></textarea>
-        <br />
+      <label htmlFor="subject">Description</label>
+      <br />
+      <textarea onChange={(e) => setDescription(e.target.value)}></textarea>
+      <br />
 
-        <label htmlFor="subject">Eligibility</label>
-        <br />
-        <textarea onChange={(e) => setEligibility(e.target.value)}></textarea>
-        <br />
+      <label htmlFor="subject">Eligibility</label>
+      <br />
+      <textarea onChange={(e) => setEligibility(e.target.value)}></textarea>
+      <br />
 
-        <input type="submit" value="Publish" onClick={handleSubmit} />
-      </div>
-    </PrivateComponent>
+      <input type="submit" value="Publish" onClick={handleSubmit} />
+    </div>
   );
 };
 

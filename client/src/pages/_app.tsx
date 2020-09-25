@@ -3,6 +3,8 @@ import React, { ReactElement } from 'react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 
+import PrivateComponent from '../components/PrivateComponent';
+
 const App = (props: AppProps): ReactElement => {
   const { Component, pageProps } = props;
 
@@ -13,7 +15,9 @@ const App = (props: AppProps): ReactElement => {
         <link rel="shortcut icon" href="https://developersam.com/favicon.ico" />
         <title>Flower</title>
       </Head>
-      <Component {...pageProps} />
+      <PrivateComponent>
+        <Component {...pageProps} />
+      </PrivateComponent>
     </>
   );
 };
