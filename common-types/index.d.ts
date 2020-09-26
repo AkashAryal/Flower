@@ -41,3 +41,11 @@ type AppProfile = {
   readonly interests: readonly string[];
   readonly skills: readonly string[];
 };
+
+/** A record object about study schedules */
+type AppSchedule = {
+  readonly id: string;
+  readonly owner: string;
+  readonly studyID: string;
+  readonly timeSlot: string;
+};

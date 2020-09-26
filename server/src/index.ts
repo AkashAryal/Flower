@@ -31,10 +31,22 @@ const getAppStudyFromSnapshot = (
   snapshot: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData>
 ): readonly AppStudy[] => snapshot.docs.map((it) => ({ ...it.data(), id: it.id } as AppStudy));
 
+const getAppStudyWithOccupiedTimes = async (
+  study: AppStudy
+): Promise<AppStudyWithOccupiedTimes> => {
+  const snapshot = await admin
+    .firestore()
+    .collection('schedules')
+    .where('studyID', '==', study.id)
+    .get();
+  const occupiedTimes = snapshot.docs.map((it) => it.data().timeSlot as string);
+  return { ...study, occupiedTimes };
+};
+
 export const getTrending = createHttpsFunctionWithAuthWall(async () => {
   // TODO: actually compute it according to reservations.
   const snapshot = await admin.firestore().collection('studies').limit(10).get();
-  return getAppStudyFromSnapshot(snapshot);
+  return await Promise.all(getAppStudyFromSnapshot(snapshot).map(getAppStudyWithOccupiedTimes));
 });
 
 export const getInterested = createHttpsFunctionWithAuthWall(async ({ email }) => {
@@ -45,7 +57,7 @@ export const getInterested = createHttpsFunctionWithAuthWall(async ({ email }) =
     .get();
   if (!userInterestVectorSnapshot.exists) {
     const snapshot = await admin.firestore().collection('studies').limit(5).get();
-    return snapshot.docs.map((it) => ({ ...it.data(), id: it.id }));
+    return await Promise.all(getAppStudyFromSnapshot(snapshot).map(getAppStudyWithOccupiedTimes));
   }
   const userInterestVector = userInterestVectorSnapshot.data() as DocumentInterestVector;
   const studiesInterestVectorsSnapshot = await admin
@@ -73,8 +85,10 @@ export const getInterested = createHttpsFunctionWithAuthWall(async ({ email }) =
       admin.firestore().collection('studies').doc(id).get()
     )
   );
-  return mostInterestedStudyDocumentSnapshots.map(
-    (it) => ({ ...it.data(), id: it.id } as AppStudy)
+  return await Promise.all(
+    mostInterestedStudyDocumentSnapshots.map((it) =>
+      getAppStudyWithOccupiedTimes({ ...it.data(), id: it.id } as AppStudy)
+    )
   );
 });
 
