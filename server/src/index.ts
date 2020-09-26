@@ -1,5 +1,9 @@
+/* eslint-disable no-console */
+
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
+
+import computeInterestVector from './nlp-process';
 
 admin.initializeApp();
 
@@ -35,3 +39,40 @@ export const getInterested = createHttpsFunctionWithAuthWall(async () => {
 });
 
 export const getUserNameForTesting = createHttpsFunctionWithAuthWall(async (user) => user);
+
+const createDocumentListenerFunctionForInterestVectorComputation = (
+  documentPath: string,
+  textField: string,
+  interestVectorCollection: string
+) =>
+  functions.firestore.document(documentPath).onWrite(async (change) => {
+    console.log(`A document create/update on text is detected for ${documentPath} is detected.`);
+    // Do nothing if data is removed.
+    if (!change.after.exists) return;
+    const textBefore = change.before.data()?.[textField];
+    const textAfter = change.after.data()?.[textField];
+    if (textAfter === textBefore) {
+      console.log('No change in text. Avoid recomputing interest vector.');
+      return;
+    }
+    if (typeof textAfter !== 'string') return;
+    const interestVector = await computeInterestVector(textAfter);
+    console.log(`Interest vector for "${textAfter}" is ${JSON.stringify(interestVector)}`);
+    await admin
+      .firestore()
+      .collection(interestVectorCollection)
+      .doc(change.after.id)
+      .set(interestVector);
+  });
+
+export const onProfileWrite = createDocumentListenerFunctionForInterestVectorComputation(
+  'profiles/{documentID}',
+  'selfIntroduction',
+  'profile-interest-vector'
+);
+
+export const onStudyWrite = createDocumentListenerFunctionForInterestVectorComputation(
+  'studies/{documentID}',
+  'description',
+  'studies-interest-vector'
+);
