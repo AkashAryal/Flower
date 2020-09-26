@@ -39,13 +39,9 @@ const StudiesPage = (): ReactElement => {
       <h2 className={styles.StudiesSectionHeader}>Trending</h2>
       {trendingStudies ? (
         <div className={styles.StudiesContainer}>
-          {trendingStudies.map((study) => {
-            return (
-              <div key={study.id}>
-                <SchedulableStudyCard study={study} />
-              </div>
-            );
-          })}
+          {trendingStudies.map((study) => (
+            <SchedulableStudyCard key={study.id} study={study} />
+          ))}
         </div>
       ) : (
         <LoadingRing />
@@ -53,13 +49,9 @@ const StudiesPage = (): ReactElement => {
       <h2 className={styles.StudiesSectionHeader}>You may be interested in</h2>
       {interestedStudies ? (
         <div className={styles.StudiesContainer}>
-          {interestedStudies.map((study) => {
-            return (
-              <div key={study.id}>
-                <SchedulableStudyCard study={study} />
-              </div>
-            );
-          })}
+          {interestedStudies.map((study) => (
+            <SchedulableStudyCard key={study.id} study={study} />
+          ))}
         </div>
       ) : (
         <LoadingRing />
@@ -67,13 +59,9 @@ const StudiesPage = (): ReactElement => {
       <h2 className={styles.StudiesSectionHeader}>My Studies</h2>
       {myStudies ? (
         <div className={styles.StudiesContainer}>
-          {myStudies.map((study) => {
-            return (
-              <div key={study.id}>
-                <EditableStudyCard study={study} />
-              </div>
-            );
-          })}
+          {myStudies.map((study) => (
+            <EditableStudyCard key={study.id} study={study} />
+          ))}
         </div>
       ) : (
         <LoadingRing />
