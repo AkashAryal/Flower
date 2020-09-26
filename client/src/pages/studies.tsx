@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
-import Study from '../components/Study';
+import StudyCard from '../components/StudyCard';
 import firebase from '../fbConfig';
 
 const StudiesPage = (): ReactElement => {
@@ -27,7 +27,7 @@ const StudiesPage = (): ReactElement => {
           {trendingStudies.map((study) => {
             return (
               <div key={study.id}>
-                <Study study={study} />
+                <StudyCard type="schedulable" study={study} />
               </div>
             );
           })}
@@ -44,7 +44,7 @@ const StudiesPage = (): ReactElement => {
           {interestedStudies.map((study) => {
             return (
               <div key={study.id}>
-                <Study study={study} />
+                <StudyCard type="schedulable" study={study} />
               </div>
             );
           })}
