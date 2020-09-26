@@ -27,6 +27,10 @@ type AppStudy = {
 type AppStudyWithoutID = Omit<AppStudy, 'id'>;
 type AppStudyWithoutIDOwner = Omit<AppStudyWithoutID, 'owner'>;
 
+type AppStudyWithOccupiedTimes = AppStudy & {
+  readonly occupiedTimes: readonly string[];
+};
+
 /** A profile object with full information from firestore. */
 type AppProfile = {
   readonly displayName: string;
