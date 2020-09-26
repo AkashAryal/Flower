@@ -23,6 +23,7 @@ type AppStudy = {
 };
 
 type AppStudyWithoutID = Omit<AppStudy, 'id'>;
+type AppStudyWithoutIDOwner = Omit<AppStudyWithoutID, 'owner'>;
 
 type AppProfile = {
   readonly displayName: string;
