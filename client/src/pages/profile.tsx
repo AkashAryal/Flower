@@ -5,6 +5,7 @@ import Link from 'next/link';
 import firebase from '../fbConfig';
 import useProfileFromFirestore from '../hooks/profile';
 import { useUser } from '../hooks/user';
+import styles from './profile.module.css';
 
 const ProfileEditor = ({ profile }: { readonly profile: AppProfile }): ReactElement => {
   const { displayName, email, profilePicture } = useUser();
@@ -50,16 +51,7 @@ const ProfileEditor = ({ profile }: { readonly profile: AppProfile }): ReactElem
   };
 
   return (
-    <div style={{ textAlign: 'center' }}>
-      <h1>My Profile</h1>
-      <img src={profilePicture} alt="profile" />
-      <br />
-      {
-        <div>
-          Hello {displayName} <br />
-          <br />
-        </div>
-      }
+    <div>
       {options.map((o) => (
         <div key={o.link}>
           <Link href={o.link}>{o.name}</Link>
@@ -67,43 +59,58 @@ const ProfileEditor = ({ profile }: { readonly profile: AppProfile }): ReactElem
           <br />
         </div>
       ))}
-      <br />
-      <label htmlFor="fname">Class Year</label>
-      <br />
-      <input type="text" value={classYear} onChange={(e) => setClassYear(e.target.value)} />
-      <br />
+      <div className={`card ${styles.ProfileCard}`}>
+        <div className="card__header">
+          <div className="avatar">
+            <img className="avatar__photo" src={profilePicture} alt="Profile" />
+            <div className="avatar__intro">
+              <h4 className="avatar__name">{`${displayName}'s Profile`}</h4>
+            </div>
+          </div>
+        </div>
+        <div className="card__body">
+          <label htmlFor="fname">Class Year</label>
+          <br />
+          <input type="text" value={classYear} onChange={(e) => setClassYear(e.target.value)} />
+          <br />
 
-      <label htmlFor="lname">Birthday</label>
-      <br />
-      <input type="text" value={birthday} onChange={(e) => setBirthday(e.target.value)} />
-      <br />
+          <label htmlFor="lname">Birthday</label>
+          <br />
+          <input type="text" value={birthday} onChange={(e) => setBirthday(e.target.value)} />
+          <br />
 
-      <label htmlFor="lname">Major</label>
-      <br />
-      <input type="text" value={major} onChange={(e) => setMajor(e.target.value)} />
-      <br />
+          <label htmlFor="lname">Major</label>
+          <br />
+          <input type="text" value={major} onChange={(e) => setMajor(e.target.value)} />
+          <br />
 
-      <label htmlFor="lname">Self Introduciton</label>
-      <br />
-      <textarea value={selfIntroduction} onChange={(e) => setSelfIntroduction(e.target.value)} />
-      <br />
+          <label htmlFor="lname">Self Introduciton</label>
+          <br />
+          <textarea
+            value={selfIntroduction}
+            onChange={(e) => setSelfIntroduction(e.target.value)}
+          />
+          <br />
 
-      <label htmlFor="subject">Interests (comma separated)</label>
-      <br />
-      <input type="text" value={interests} onChange={(e) => setInterests(e.target.value)} />
-      <br />
+          <label htmlFor="subject">Interests (comma separated)</label>
+          <br />
+          <input type="text" value={interests} onChange={(e) => setInterests(e.target.value)} />
+          <br />
 
-      <label htmlFor="subject">Skills (comma separated)</label>
-      <br />
-      <input type="text" value={skills} onChange={(e) => setSkills(e.target.value)} />
-      <br />
-
-      <input
-        type="submit"
-        value="Update"
-        disabled={submitShouldBeDisabled}
-        onClick={handleSubmit}
-      />
+          <label htmlFor="subject">Skills (comma separated)</label>
+          <br />
+          <input type="text" value={skills} onChange={(e) => setSkills(e.target.value)} />
+        </div>
+        <div className="card__footer">
+          <button
+            className="button button--primary button--block"
+            disabled={submitShouldBeDisabled}
+            onClick={handleSubmit}
+          >
+            Update Profile
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
