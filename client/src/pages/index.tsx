@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement } from 'react';
 
 import firebase from '../fbConfig';
 import { useUser } from '../hooks/user';
