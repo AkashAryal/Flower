@@ -1,5 +1,7 @@
 import React, { ReactElement, useState } from 'react';
 
+import firebase from '../fbConfig';
+import { useMySchedulesFromFirestore } from '../hooks/user-data';
 import styles from './StudyCard.module.css';
 import StudyCardInlineEditor from './StudyCardInlineEditor';
 import StudyCardInlineSchedular from './StudyCardInlineSchedular';
@@ -27,9 +29,12 @@ export const SchedulableStudyCard = ({
 }: {
   readonly study: AppStudyWithOccupiedTimes;
 }): ReactElement => {
+  const mySchedules = useMySchedulesFromFirestore().filter((it) => it.studyID === study.id);
+  const myScheduleForThisStudy = mySchedules.length === 0 ? null : mySchedules[0];
+
   const [showSchedule, setShowSchedule] = useState(false);
 
-  const availableTimeFilteredStudy = (() => {
+  const availableTimeFilteredStudy: AppStudy = (() => {
     const { occupiedTimes, ...filtered } = study;
     return {
       ...filtered,
@@ -37,21 +42,46 @@ export const SchedulableStudyCard = ({
     };
   })();
 
+  const onScheduleButtonClick = (): void => {
+    if (myScheduleForThisStudy) {
+      firebase
+        .firestore()
+        .collection('schedules')
+        .doc(myScheduleForThisStudy.id)
+        .delete()
+        .then(() => {
+          // eslint-disable-next-line no-alert
+          alert('Successfully cancelled your scheduled study.');
+          location.reload();
+        });
+    } else {
+      setShowSchedule(true);
+    }
+  };
+
   return (
     <div className={`card ${styles.StudyCard}`}>
       <div className="card__image">
         <img src={PLACEHOLDER_IMAGE} alt="Random Study" />
       </div>
-      <StudyCardContent study={availableTimeFilteredStudy} />
-      {showSchedule && <StudyCardInlineSchedular />}
+      {showSchedule ? (
+        <div className="card__body">
+          <h3>{`Pick a time for study "${study.projectName}"`}</h3>
+        </div>
+      ) : (
+        <StudyCardContent study={availableTimeFilteredStudy} />
+      )}
       <div className="card__footer">
         {!showSchedule && (
-          <button
-            className="button button--primary button--block"
-            onClick={() => setShowSchedule(true)}
-          >
-            Schedule
+          <button className="button button--primary button--block" onClick={onScheduleButtonClick}>
+            {myScheduleForThisStudy ? 'Unschedule' : 'Schedule'}
           </button>
+        )}
+        {showSchedule && (
+          <StudyCardInlineSchedular
+            study={availableTimeFilteredStudy}
+            onScheduled={() => setShowSchedule(false)}
+          />
         )}
       </div>
     </div>

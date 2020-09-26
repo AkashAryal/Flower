@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 
 import { signIn } from '../actions/auth-actions';
 import firebase from '../fbConfig';
-import useProfileFromFirestore from '../hooks/profile';
 import { useSetUser } from '../hooks/user';
+import { useProfileFromFirestore, useUserDataListeners } from '../hooks/user-data';
 import LoadingRing from './LoadingRing';
 
 const Login = (): ReactElement => {
@@ -23,6 +23,7 @@ const Login = (): ReactElement => {
 
 /** Prevent children from being rendered if profile is empty. */
 const OnboardingGuard = ({ children }: { readonly children: ReactElement }): ReactElement => {
+  useUserDataListeners();
   const profile = useProfileFromFirestore();
   const router = useRouter();
 

@@ -11,10 +11,11 @@ admin.initializeApp();
 type User = { readonly name: string; readonly email: string };
 
 const createHttpsFunctionWithAuthWall = (
-  handler: (user: User) => Promise<unknown>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  handler: (user: User, data: any) => Promise<unknown>
 ): functions.HttpsFunction =>
   functions.https.onCall(
-    async (_, context): Promise<unknown> => {
+    async (data, context): Promise<unknown> => {
       const decodedIDToken = context.auth?.token;
       if (decodedIDToken == null) {
         return 'PERMISSION_DENIED';
@@ -23,7 +24,7 @@ const createHttpsFunctionWithAuthWall = (
       if (email == null) {
         return 'PERMISSION_DENIED';
       }
-      return await handler({ name, email });
+      return await handler({ name, email }, data);
     }
   );
 
@@ -42,6 +43,27 @@ const getAppStudyWithOccupiedTimes = async (
   const occupiedTimes = snapshot.docs.map((it) => it.data().timeSlot as string);
   return { ...study, occupiedTimes };
 };
+
+export const createStudySchedule = createHttpsFunctionWithAuthWall(
+  async (
+    { email: owner },
+    { studyID, timeSlot }: { readonly studyID: string; readonly timeSlot: string }
+  ) => {
+    const occupiedTimes = (
+      await admin.firestore().collection('schedules').where('studyID', '==', studyID).get()
+    ).docs.map((it) => it.data().timeSlot as string);
+    const availableTimes =
+      ((await admin.firestore().collection('studies').doc(studyID).get()).data() as
+        | AppStudy
+        | undefined)?.availableTimes ?? [];
+    if (occupiedTimes.includes(timeSlot) || !availableTimes.includes(timeSlot)) {
+      return { status: 'FAILED' };
+    }
+    const appScheduleWithoutID: AppScheduleWithoutID = { owner, studyID, timeSlot };
+    await admin.firestore().collection('schedules').add(appScheduleWithoutID);
+    return { status: 'SUCCESS' };
+  }
+);
 
 export const getTrending = createHttpsFunctionWithAuthWall(async () => {
   // TODO: actually compute it according to reservations.
