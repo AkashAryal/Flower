@@ -3,11 +3,14 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import LoadingRing from '../components/LoadingRing';
 import StudyCard from '../components/StudyCard';
 import firebase from '../fbConfig';
+import { useUser } from '../hooks/user';
 import styles from './studies.module.css';
 
 const StudiesPage = (): ReactElement => {
+  const { email: owner } = useUser();
   const [trendingStudies, setTrendingStudies] = useState<readonly AppStudy[] | undefined>();
   const [interestedStudies, setInterestedStudies] = useState<readonly AppStudy[] | undefined>();
+  const [myStudies, setMyStudies] = useState<readonly AppStudy[] | undefined>();
 
   useEffect(() => {
     firebase
@@ -18,7 +21,14 @@ const StudiesPage = (): ReactElement => {
       .functions()
       .httpsCallable('getInterested')()
       .then((r) => setInterestedStudies(r.data));
-  }, []);
+    firebase
+      .firestore()
+      .collection('studies')
+      .where('owner', '==', owner)
+      .onSnapshot((snapshot) =>
+        setMyStudies(snapshot.docs.map((it) => ({ ...it.data(), id: it.id } as AppStudy)))
+      );
+  }, [owner]);
 
   return (
     <div>
@@ -43,6 +53,20 @@ const StudiesPage = (): ReactElement => {
             return (
               <div key={study.id}>
                 <StudyCard type="schedulable" study={study} />
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <LoadingRing />
+      )}
+      <h2 className={styles.StudiesSectionHeader}>My Studies</h2>
+      {myStudies ? (
+        <div className={styles.StudiesContainer}>
+          {myStudies.map((study) => {
+            return (
+              <div key={study.id}>
+                <StudyCard type="editable" study={study} />
               </div>
             );
           })}

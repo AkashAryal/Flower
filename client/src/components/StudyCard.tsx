@@ -7,19 +7,17 @@ import StudyCardInlineSchedular from './StudyCardInlineSchedular';
 type Props = {
   readonly className?: string;
   readonly type: 'editable' | 'schedulable';
-  readonly study: AppStudyWithoutID;
+  readonly study: AppStudy;
 };
 
 const PLACEHOLDER_IMAGE =
   'https://images.unsplash.com/photo-1501619951397-5ba40d0f75da?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80';
 
-const StudyCard = ({
-  className,
-  type,
-  study: { projectName, rewards, description, avaliableTimes, duration, eligibility },
-}: Props): ReactElement => {
+const StudyCard = ({ className, type, study }: Props): ReactElement => {
   const [showEdit, setShowEdit] = useState(false);
   const [showSchedule, setShowSchedule] = useState(false);
+
+  const { projectName, rewards, description, avaliableTimes, duration, eligibility } = study;
 
   return (
     <div
@@ -28,16 +26,17 @@ const StudyCard = ({
       <div className="card__image">
         <img src={PLACEHOLDER_IMAGE} alt="Random Study" />
       </div>
-      <p style={{ fontWeight: 'bolder' }}></p>
-      <div className="card__body">
-        <h3>{projectName}</h3>
-        <p>Rewards: {rewards}</p>
-        <p>Description: {description}</p>
-        <p>Avaliable Times: {avaliableTimes.join(', ')}</p>
-        <p>Duration: {duration}</p>
-        <p>Eligibility: {eligibility}</p>
-      </div>
-      {showEdit && <StudyCardInlineEditor />}
+      {!showEdit && (
+        <div className="card__body">
+          <h3>{projectName}</h3>
+          <p>Rewards: {rewards}</p>
+          <p>Description: {description}</p>
+          <p>Avaliable Times: {avaliableTimes.join(', ')}</p>
+          <p>Duration: {duration}</p>
+          <p>Eligibility: {eligibility}</p>
+        </div>
+      )}
+      {showEdit && <StudyCardInlineEditor study={study} onSubmitted={() => setShowEdit(false)} />}
       {showSchedule && <StudyCardInlineSchedular />}
       <div className="card__footer">
         {type === 'editable' && !showEdit && (
