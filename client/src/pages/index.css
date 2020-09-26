@@ -36,3 +36,8 @@ a:active {
   color: var(--ifm-color-primary);
   background-color: var(--ifm-background-color-transparent);
 }
+
+.card__body > .text-input {
+  width: 100%;
+  padding: 0.5em;
+}

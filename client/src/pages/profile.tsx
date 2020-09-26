@@ -7,6 +7,8 @@ import useProfileFromFirestore from '../hooks/profile';
 import { useUser } from '../hooks/user';
 import styles from './profile.module.css';
 
+const INPUT_CLASSNAME = `text-input ${styles.InputRowInput}`;
+
 const ProfileEditor = ({ profile }: { readonly profile: AppProfile }): ReactElement => {
   const { displayName, email, profilePicture } = useUser();
 
@@ -69,38 +71,67 @@ const ProfileEditor = ({ profile }: { readonly profile: AppProfile }): ReactElem
           </div>
         </div>
         <div className="card__body">
-          <label htmlFor="fname">Class Year</label>
-          <br />
-          <input type="text" value={classYear} onChange={(e) => setClassYear(e.target.value)} />
-          <br />
-
-          <label htmlFor="lname">Birthday</label>
-          <br />
-          <input type="text" value={birthday} onChange={(e) => setBirthday(e.target.value)} />
-          <br />
-
-          <label htmlFor="lname">Major</label>
-          <br />
-          <input type="text" value={major} onChange={(e) => setMajor(e.target.value)} />
-          <br />
-
-          <label htmlFor="lname">Self Introduciton</label>
-          <br />
-          <textarea
-            value={selfIntroduction}
-            onChange={(e) => setSelfIntroduction(e.target.value)}
-          />
-          <br />
-
-          <label htmlFor="subject">Interests (comma separated)</label>
-          <br />
-          <input type="text" value={interests} onChange={(e) => setInterests(e.target.value)} />
-          <br />
-
-          <label htmlFor="subject">Skills (comma separated)</label>
-          <br />
-          <input type="text" value={skills} onChange={(e) => setSkills(e.target.value)} />
+          <div className={styles.InputRow}>
+            <label htmlFor="profile-class-year-input">Class Year</label>
+            <input
+              id="profile-class-year-input"
+              type="text"
+              className={INPUT_CLASSNAME}
+              value={classYear}
+              onChange={(e) => setClassYear(e.target.value)}
+            />
+          </div>
+          <div className={styles.InputRow}>
+            <label htmlFor="profile-birthday-input">Birthday</label>
+            <input
+              id="profile-birthday-input"
+              type="text"
+              className={INPUT_CLASSNAME}
+              value={birthday}
+              onChange={(e) => setBirthday(e.target.value)}
+            />
+          </div>
+          <div className={styles.InputRow}>
+            <label htmlFor="profile-major-input">Major</label>
+            <input
+              id="profile-major-input"
+              type="text"
+              className={INPUT_CLASSNAME}
+              value={major}
+              onChange={(e) => setMajor(e.target.value)}
+            />
+          </div>
+          <div className={styles.InputRow}>
+            <label htmlFor="profile-interest-input">Interests (comma separated)</label>
+            <input
+              id="profile-interest-input"
+              type="text"
+              className={INPUT_CLASSNAME}
+              value={interests}
+              onChange={(e) => setInterests(e.target.value)}
+            />
+          </div>
+          <div className={styles.InputRow}>
+            <label htmlFor="profile-skills-input">Skills (comma separated)</label>
+            <input
+              id="profile-skills-input"
+              type="text"
+              className={INPUT_CLASSNAME}
+              value={skills}
+              onChange={(e) => setSkills(e.target.value)}
+            />
+          </div>
+          <div className={styles.InputRow}>
+            <label htmlFor="profile-self-intro-input">Self Introduciton</label>
+            <textarea
+              id="profile-self-intro-input"
+              value={selfIntroduction}
+              className={INPUT_CLASSNAME}
+              onChange={(e) => setSelfIntroduction(e.target.value)}
+            />
+          </div>
         </div>
+
         <div className="card__footer">
           <button
             className="button button--primary button--block"
