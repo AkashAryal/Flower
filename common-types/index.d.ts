@@ -49,3 +49,5 @@ type AppSchedule = {
   readonly studyID: string;
   readonly timeSlot: string;
 };
+
+type AppScheduleWithoutID = Omit<AppSchedule, 'id'>;

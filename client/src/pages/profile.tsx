@@ -1,11 +1,9 @@
 import React, { ReactElement, useState } from 'react';
 
-import Link from 'next/link';
-
 import LoadingRing from '../components/LoadingRing';
 import firebase from '../fbConfig';
-import useProfileFromFirestore from '../hooks/profile';
 import { useUser } from '../hooks/user';
+import { useProfileFromFirestore } from '../hooks/user-data';
 
 const ProfileEditor = ({ profile }: { readonly profile: AppProfile }): ReactElement => {
   const { displayName, email, profilePicture } = useUser();
@@ -16,13 +14,6 @@ const ProfileEditor = ({ profile }: { readonly profile: AppProfile }): ReactElem
   const [selfIntroduction, setSelfIntroduction] = useState(profile.selfIntroduction);
   const [interests, setInterests] = useState(profile.interests.join(','));
   const [skills, setSkills] = useState(profile.skills.join(','));
-
-  const options: { name: string; link: string }[] = [
-    { name: 'Scheduled Studies', link: '/scheduled-studies' },
-    { name: 'My studies', link: '/my-studies' },
-    { name: 'My Profile', link: '/about-me' },
-    { name: 'IRB Eligibility', link: '/irb-eligibility' },
-  ];
 
   // Disable submit if some fields are empty.
   const submitShouldBeDisabled = [classYear, birthday, major, selfIntroduction, interests, skills]
@@ -52,13 +43,6 @@ const ProfileEditor = ({ profile }: { readonly profile: AppProfile }): ReactElem
 
   return (
     <div>
-      {options.map((o) => (
-        <div key={o.link}>
-          <Link href={o.link}>{o.name}</Link>
-          <br />
-          <br />
-        </div>
-      ))}
       <div className="card centered-card">
         <div className="card__header">
           <div className="avatar">
