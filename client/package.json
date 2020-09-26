@@ -8,6 +8,7 @@
     "compile": "tsc"
   },
   "dependencies": {
+    "common-types": "1.0.0",
     "firebase": "^7.21.0",
     "infima": "^0.2.0-alpha.12",
     "next": "^9.5.3",
