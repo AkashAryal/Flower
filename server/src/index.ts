@@ -72,8 +72,6 @@ export const getInterested = createHttpsFunctionWithAuthWall(async ({ email }) =
   return mostInterestedStudyDocumentSnapshots.map((it) => ({ ...it.data(), id: it.id }));
 });
 
-export const getUserNameForTesting = createHttpsFunctionWithAuthWall(async (user) => user);
-
 const createDocumentListenerFunctionForInterestVectorComputation = (
   documentPath: string,
   textField: string,
