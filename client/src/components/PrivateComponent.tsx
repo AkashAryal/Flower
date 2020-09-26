@@ -6,6 +6,7 @@ import { signIn } from '../actions/auth-actions';
 import firebase from '../fbConfig';
 import useProfileFromFirestore from '../hooks/profile';
 import { useSetUser } from '../hooks/user';
+import LoadingRing from './LoadingRing';
 
 const Login = (): ReactElement => {
   const [error, setError] = useState('');
@@ -25,7 +26,7 @@ const OnboardingGuard = ({ children }: { readonly children: ReactElement }): Rea
   const profile = useProfileFromFirestore();
   const router = useRouter();
 
-  if (profile == null) return <div>Loading...</div>;
+  if (profile == null) return <LoadingRing />;
   if (
     router.asPath !== '/profile' &&
     (profile.classYear.trim() === '' ||
@@ -65,7 +66,7 @@ const PrivateComponent = ({ children }: { readonly children: ReactElement }): Re
   }, [setUser]);
 
   if (status === 'LOADING') {
-    return <h1>Loading ......</h1>;
+    return <LoadingRing />;
   } else if (status === 'SIGNED_OUT') {
     return <Login />;
   } else {
