@@ -29,12 +29,20 @@ export const SchedulableStudyCard = ({
 }): ReactElement => {
   const [showSchedule, setShowSchedule] = useState(false);
 
+  const availableTimeFilteredStudy = (() => {
+    const { occupiedTimes, ...filtered } = study;
+    return {
+      ...filtered,
+      avaliableTimes: filtered.avaliableTimes.filter((it) => !occupiedTimes.includes(it)),
+    };
+  })();
+
   return (
     <div className={`card ${styles.StudyCard}`}>
       <div className="card__image">
         <img src={PLACEHOLDER_IMAGE} alt="Random Study" />
       </div>
-      <StudyCardContent study={study} />
+      <StudyCardContent study={availableTimeFilteredStudy} />
       {showSchedule && <StudyCardInlineSchedular />}
       <div className="card__footer">
         {!showSchedule && (
