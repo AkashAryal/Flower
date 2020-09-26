@@ -9,7 +9,7 @@ const initialStudy: AppStudyWithoutIDOwner = {
   projectName: '',
   duration: '',
   rewards: '',
-  avaliableTimes: [],
+  availableTimes: [],
   description: '',
   eligibility: '',
 };

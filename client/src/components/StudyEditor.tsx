@@ -10,7 +10,7 @@ const StudyEditor = ({ initialStudy, submitButtonName, onSubmit }: Props): React
   const [projectName, setProjectName] = useState(initialStudy.projectName);
   const [duration, setDuration] = useState(initialStudy.duration);
   const [rewards, setRewards] = useState(initialStudy.rewards);
-  const [avaliableTimes, setAvaliableTimes] = useState(initialStudy.avaliableTimes.join(','));
+  const [availableTimes, setAvailableTimes] = useState(initialStudy.availableTimes.join(','));
   const [description, setDescription] = useState(initialStudy.description);
   const [eligibility, setEligibility] = useState(initialStudy.eligibility);
 
@@ -19,7 +19,7 @@ const StudyEditor = ({ initialStudy, submitButtonName, onSubmit }: Props): React
     projectName,
     duration,
     rewards,
-    avaliableTimes,
+    availableTimes,
     description,
     eligibility,
   ]
@@ -31,7 +31,7 @@ const StudyEditor = ({ initialStudy, submitButtonName, onSubmit }: Props): React
       projectName,
       duration,
       rewards,
-      avaliableTimes: avaliableTimes.split(',').map((it) => it.trim()),
+      availableTimes: availableTimes.split(',').map((it) => it.trim()),
       description,
       eligibility,
     });
@@ -72,8 +72,8 @@ const StudyEditor = ({ initialStudy, submitButtonName, onSubmit }: Props): React
         <input
           id="create-study-available-times-input"
           type="text"
-          value={avaliableTimes}
-          onChange={(e) => setAvaliableTimes(e.target.value)}
+          value={availableTimes}
+          onChange={(e) => setAvailableTimes(e.target.value)}
         />
       </div>
       <div className="input-row">
