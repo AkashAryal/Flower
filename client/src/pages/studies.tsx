@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { ReactElement, useEffect, useState } from 'react';
 
 import Study from '../components/Study';
@@ -8,20 +7,13 @@ const Studies = (): ReactElement => {
   const [studies, setStudies] = useState<AppStudyWithoutID[]>([]);
 
   useEffect(() => {
-    getAllStudies();
-  }, []);
-
-  const getAllStudies = (): void => {
     firebase
       .firestore()
       .collection('studies')
-      .onSnapshot((doc) => {
-        const data: AppStudyWithoutID[] = [];
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        doc.forEach((d: any) => data.push(d.data()));
-        setStudies(data);
+      .onSnapshot((documents) => {
+        setStudies(documents.docs.map((it) => ({ ...it.data(), id: it.id } as AppStudy)));
       });
-  };
+  }, []);
 
   // TODO: trending
   const getTrending = () => {
