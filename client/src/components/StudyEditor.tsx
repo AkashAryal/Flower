@@ -37,44 +37,72 @@ const StudyEditor = ({ initialStudy, submitButtonName, onSubmit }: Props): React
     });
 
   return (
-    <div style={{ textAlign: 'center' }}>
-      <label htmlFor="fname">Project Name</label>
-      <br />
-      <input type="text" onChange={(e) => setProjectName(e.target.value)} />
-      <br />
+    <>
+      <div className="input-row">
+        <label htmlFor="create-study-project-name-input">Project Name</label>
+        <input
+          id="create-study-project-name-input"
+          type="text"
+          value={projectName}
+          onChange={(e) => setProjectName(e.target.value)}
+        />
+      </div>
+      <div className="input-row">
+        <label htmlFor="create-study-duration-input">Participation Duration</label>
+        <input
+          id="create-study-duration-input"
+          type="text"
+          value={duration}
+          onChange={(e) => setDuration(e.target.value)}
+        />
+      </div>
+      <div className="input-row">
+        <label htmlFor="create-study-rewards-input">Rewards Type</label>
+        <input
+          id="create-study-rewards-input"
+          type="text"
+          value={rewards}
+          onChange={(e) => setRewards(e.target.value)}
+        />
+      </div>
+      <div className="input-row">
+        <label htmlFor="create-study-available-times-input">
+          Avaliable Times (comma separated)
+        </label>
+        <input
+          id="create-study-available-times-input"
+          type="text"
+          value={avaliableTimes}
+          onChange={(e) => setAvaliableTimes(e.target.value)}
+        />
+      </div>
+      <div className="input-row">
+        <label htmlFor="create-study-description-input">Description</label>
+        <textarea
+          id="create-study-description-input"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+      </div>
+      <div className="input-row">
+        <label htmlFor="create-study-eligibility-input">Eligibility</label>
+        <textarea
+          id="create-study-eligibility-input"
+          value={eligibility}
+          onChange={(e) => setEligibility(e.target.value)}
+        />
+      </div>
 
-      <label htmlFor="lname">Participation Duration</label>
-      <br />
-      <input type="text" onChange={(e) => setDuration(e.target.value)} />
-      <br />
-
-      <label htmlFor="lname">Rewards Type</label>
-      <br />
-      <input type="text" onChange={(e) => setRewards(e.target.value)} />
-      <br />
-
-      <label htmlFor="lname">Avaliable Times (comma separated)</label>
-      <br />
-      <input type="text" onChange={(e) => setAvaliableTimes(e.target.value)} />
-      <br />
-
-      <label htmlFor="subject">Description</label>
-      <br />
-      <textarea onChange={(e) => setDescription(e.target.value)}></textarea>
-      <br />
-
-      <label htmlFor="subject">Eligibility</label>
-      <br />
-      <textarea onChange={(e) => setEligibility(e.target.value)}></textarea>
-      <br />
-
-      <input
-        type="submit"
-        value={submitButtonName}
-        disabled={submitShouldBeDisabled}
-        onClick={handleSubmit}
-      />
-    </div>
+      <div className="input-row">
+        <button
+          className="button button--primary button--block"
+          disabled={submitShouldBeDisabled}
+          onClick={handleSubmit}
+        >
+          {submitButtonName}
+        </button>
+      </div>
+    </>
   );
 };
 

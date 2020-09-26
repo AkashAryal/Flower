@@ -30,7 +30,16 @@ const CreateStudy = (): ReactElement => {
     alert('You have successfully published a study.');
   };
 
-  return <StudyEditor initialStudy={initialStudy} submitButtonName="Publish" onSubmit={onSubmit} />;
+  return (
+    <div className="card centered-card">
+      <div className="card__header">
+        <h4>Create Study</h4>
+      </div>
+      <div className="card__body">
+        <StudyEditor initialStudy={initialStudy} submitButtonName="Publish" onSubmit={onSubmit} />
+      </div>
+    </div>
+  );
 };
 
 export default CreateStudy;

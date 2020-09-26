@@ -1,6 +1,5 @@
 :root {
   --ifm-background-color: #f7f7f7;
-  --ifm-color-primary: #3e7ae2;
   --ifm-background-color-transparent: rgba(62, 122, 226, 0.07);
 }
 
@@ -37,7 +36,39 @@ a:active {
   background-color: var(--ifm-background-color-transparent);
 }
 
-.card__body > .text-input {
-  width: 100%;
-  padding: 0.5em;
+input,
+textarea {
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-color: #37474f4d;
+  border-width: 1px;
+}
+
+.input-row {
+  display: flex;
+  flex-direction: row;
+  margin: 1em 0;
+}
+
+.input-row input,
+.input-row textarea {
+  flex: 1 1 auto;
+  margin-left: 1em;
+}
+
+.centered-card {
+  margin: 1em auto;
+}
+
+@media only screen and (min-width: 800px) {
+  .centered-card {
+    width: 600px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .centered-card {
+    width: 90%;
+  }
 }
