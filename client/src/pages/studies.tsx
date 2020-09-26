@@ -35,8 +35,6 @@ const Studies = (): ReactElement => {
 
   return (
     <div>
-      TOP BAR
-      <br />
       <p style={{ fontWeight: 'bolder' }}>Trending</p>
       <br />
       <div style={{ display: 'flex', flexDirection: 'row' }}>
