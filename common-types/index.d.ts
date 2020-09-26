@@ -19,7 +19,7 @@ type AppStudy = {
   readonly projectName: string;
   readonly duration: string;
   readonly rewards: string;
-  readonly avaliableTimes: readonly string[];
+  readonly availableTimes: readonly string[];
   readonly description: string;
   readonly eligibility: string;
 };

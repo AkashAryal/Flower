@@ -8,7 +8,7 @@ const PLACEHOLDER_IMAGE =
   'https://images.unsplash.com/photo-1501619951397-5ba40d0f75da?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80';
 
 const StudyCardContent = ({
-  study: { projectName, rewards, description, avaliableTimes, duration, eligibility },
+  study: { projectName, rewards, description, availableTimes, duration, eligibility },
 }: {
   readonly study: AppStudy;
 }): ReactElement => (
@@ -16,7 +16,7 @@ const StudyCardContent = ({
     <h3>{projectName}</h3>
     <p>Rewards: {rewards}</p>
     <p>Description: {description}</p>
-    <p>Avaliable Times: {avaliableTimes.join(', ')}</p>
+    <p>Available Times: {availableTimes.join(', ')}</p>
     <p>Duration: {duration}</p>
     <p>Eligibility: {eligibility}</p>
   </div>
@@ -33,7 +33,7 @@ export const SchedulableStudyCard = ({
     const { occupiedTimes, ...filtered } = study;
     return {
       ...filtered,
-      avaliableTimes: filtered.avaliableTimes.filter((it) => !occupiedTimes.includes(it)),
+      availableTimes: filtered.availableTimes.filter((it) => !occupiedTimes.includes(it)),
     };
   })();
 
