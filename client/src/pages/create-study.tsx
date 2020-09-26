@@ -60,8 +60,6 @@ const CreateStudy = (): ReactElement => {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      <img src="https://i.imgur.com/SR0YwEv.jpg" alt="" />
-      <br />
       <label htmlFor="fname">Project Name</label>
       <br />
       <input type="text" onChange={(e) => setProjectName(e.target.value)} />
