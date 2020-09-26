@@ -8,7 +8,7 @@ type Props = {
 
 const StudyEditor = ({ initialStudy, submitButtonName, onSubmit }: Props): ReactElement => {
   const [projectName, setProjectName] = useState(initialStudy.projectName);
-  const [duration, setDuration] = useState(initialStudy.description);
+  const [duration, setDuration] = useState(initialStudy.duration);
   const [rewards, setRewards] = useState(initialStudy.rewards);
   const [avaliableTimes, setAvaliableTimes] = useState(initialStudy.avaliableTimes.join(','));
   const [description, setDescription] = useState(initialStudy.description);

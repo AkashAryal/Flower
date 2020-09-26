@@ -12,6 +12,13 @@ import PrivateComponent from '../components/PrivateComponent';
 import 'infima/dist/css/default/default.min.css';
 import './index.css';
 
+const themeAutoSwitcher = `(function() {
+function t(theme){document.documentElement.setAttribute('data-theme', theme)}
+if(window.matchMedia('(prefers-color-scheme: light)').matches)t('')
+if(window.matchMedia('(prefers-color-scheme: dark)').matches)t('dark')
+window.matchMedia('(prefers-color-scheme: dark)').addListener(({matches:m})=>t(m?'dark':''))
+})();`;
+
 const App = (props: AppProps): ReactElement => {
   const { Component, pageProps } = props;
 
@@ -21,6 +28,11 @@ const App = (props: AppProps): ReactElement => {
         <meta charSet="utf-8" />
         <link rel="shortcut icon" href="https://developersam.com/favicon.ico" />
         <title>Flower</title>
+        <script
+          type="text/javascript"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: themeAutoSwitcher }}
+        />
       </Head>
       <RecoilRoot>
         <PrivateComponent>
