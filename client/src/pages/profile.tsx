@@ -63,7 +63,7 @@ const ProfileEditor = ({ profile }: { readonly profile: AppProfile }): ReactElem
           <div className="avatar">
             <img className="avatar__photo" src={profilePicture} alt="Profile" />
             <div className="avatar__intro">
-              <h4 className="avatar__name">{`${displayName}'s Profile`}</h4>
+              <h2 className="avatar__name">{`${displayName}'s Profile`}</h2>
             </div>
           </div>
         </div>

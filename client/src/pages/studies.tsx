@@ -2,6 +2,7 @@ import React, { ReactElement, useEffect, useState } from 'react';
 
 import StudyCard from '../components/StudyCard';
 import firebase from '../fbConfig';
+import styles from './studies.module.css';
 
 const StudiesPage = (): ReactElement => {
   const [trendingStudies, setTrendingStudies] = useState<readonly AppStudy[] | undefined>();
@@ -20,10 +21,9 @@ const StudiesPage = (): ReactElement => {
 
   return (
     <div>
-      <p style={{ fontWeight: 'bolder' }}>Trending</p>
-      <br />
+      <h2 className={styles.StudiesSectionHeader}>Trending</h2>
       {trendingStudies ? (
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <div className={styles.StudiesContainer}>
           {trendingStudies.map((study) => {
             return (
               <div key={study.id}>
@@ -35,12 +35,9 @@ const StudiesPage = (): ReactElement => {
       ) : (
         <div>Loading</div>
       )}
-      <br />
-      <br />
+      <h2 className={styles.StudiesSectionHeader}>You may be interested in</h2>
       {interestedStudies ? (
-        <div>
-          <p style={{ fontWeight: 'bolder' }}>You may be interested in</p>
-          <br />
+        <div className={styles.StudiesContainer}>
           {interestedStudies.map((study) => {
             return (
               <div key={study.id}>

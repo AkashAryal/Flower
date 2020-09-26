@@ -30,7 +30,7 @@ const StudyCard = ({
       </div>
       <p style={{ fontWeight: 'bolder' }}></p>
       <div className="card__body">
-        <h4>{projectName}</h4>
+        <h3>{projectName}</h3>
         <p>Rewards: {rewards}</p>
         <p>Description: {description}</p>
         <p>Description: {avaliableTimes.join(', ')}</p>
