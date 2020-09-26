@@ -22,9 +22,16 @@ const createHttpsFunctionWithAuthWall = (
     }
   );
 
-// TODO: implement this function when we have more DB structures.
-export const getTrending = createHttpsFunctionWithAuthWall(async () => []);
+export const getTrending = createHttpsFunctionWithAuthWall(async () => {
+  // TODO: actually compute it according to reservations.
+  const snapshot = await admin.firestore().collection('studies').limit(10).get();
+  return snapshot.docs.map((it) => ({ ...it.data(), id: it.id }));
+});
 
-export const getInterested = createHttpsFunctionWithAuthWall(async () => []);
+export const getInterested = createHttpsFunctionWithAuthWall(async () => {
+  // TODO: actually compute it according to interest vector.
+  const snapshot = await admin.firestore().collection('studies').get();
+  return snapshot.docs.map((it) => ({ ...it.data(), id: it.id }));
+});
 
 export const getUserNameForTesting = createHttpsFunctionWithAuthWall(async (user) => user);
