@@ -33,7 +33,7 @@ const StudyCard = ({
         <h3>{projectName}</h3>
         <p>Rewards: {rewards}</p>
         <p>Description: {description}</p>
-        <p>Description: {avaliableTimes.join(', ')}</p>
+        <p>Avaliable Times: {avaliableTimes.join(', ')}</p>
         <p>Duration: {duration}</p>
         <p>Eligibility: {eligibility}</p>
       </div>

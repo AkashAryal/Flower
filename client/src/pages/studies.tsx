@@ -1,5 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
+import LoadingRing from '../components/LoadingRing';
 import StudyCard from '../components/StudyCard';
 import firebase from '../fbConfig';
 import styles from './studies.module.css';
@@ -33,7 +34,7 @@ const StudiesPage = (): ReactElement => {
           })}
         </div>
       ) : (
-        <div>Loading</div>
+        <LoadingRing />
       )}
       <h2 className={styles.StudiesSectionHeader}>You may be interested in</h2>
       {interestedStudies ? (
@@ -47,7 +48,7 @@ const StudiesPage = (): ReactElement => {
           })}
         </div>
       ) : (
-        <div>Loading</div>
+        <LoadingRing />
       )}
     </div>
   );

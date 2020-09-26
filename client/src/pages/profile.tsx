@@ -2,6 +2,7 @@ import React, { ReactElement, useState } from 'react';
 
 import Link from 'next/link';
 
+import LoadingRing from '../components/LoadingRing';
 import firebase from '../fbConfig';
 import useProfileFromFirestore from '../hooks/profile';
 import { useUser } from '../hooks/user';
@@ -140,7 +141,7 @@ const ProfileEditor = ({ profile }: { readonly profile: AppProfile }): ReactElem
 const ProfilePage = (): ReactElement => {
   const profile = useProfileFromFirestore();
 
-  if (profile == null) return <div>Loading...</div>;
+  if (profile == null) return <LoadingRing />;
   return <ProfileEditor profile={profile} />;
 };
 
