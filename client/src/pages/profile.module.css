@@ -13,3 +13,14 @@
     width: 90%;
   }
 }
+
+.InputRow {
+  display: flex;
+  flex-direction: row;
+  margin: 1em 0;
+}
+
+.InputRowInput {
+  flex: 1 1 auto;
+  margin-left: 1em;
+}
