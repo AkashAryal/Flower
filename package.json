@@ -4,6 +4,7 @@
   "repository": "https://github.com/AkashAryal/Flower.git",
   "workspaces": [
     "client",
+    "common-types",
     "server"
   ],
   "license": "MIT",

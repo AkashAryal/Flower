@@ -14,7 +14,7 @@ const createHttpsFunctionWithAuthWall = (
   handler: (user: User) => Promise<unknown>
 ): functions.HttpsFunction =>
   functions.https.onCall(
-    async (data, context): Promise<unknown> => {
+    async (_, context): Promise<unknown> => {
       const decodedIDToken = context.auth?.token;
       if (decodedIDToken == null) {
         return 'PERMISSION_DENIED';
@@ -27,10 +27,14 @@ const createHttpsFunctionWithAuthWall = (
     }
   );
 
+const getAppStudyFromSnapshot = (
+  snapshot: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData>
+): readonly AppStudy[] => snapshot.docs.map((it) => ({ ...it.data(), id: it.id } as AppStudy));
+
 export const getTrending = createHttpsFunctionWithAuthWall(async () => {
   // TODO: actually compute it according to reservations.
   const snapshot = await admin.firestore().collection('studies').limit(10).get();
-  return snapshot.docs.map((it) => ({ ...it.data(), id: it.id }));
+  return getAppStudyFromSnapshot(snapshot);
 });
 
 export const getInterested = createHttpsFunctionWithAuthWall(async ({ email }) => {
@@ -69,7 +73,9 @@ export const getInterested = createHttpsFunctionWithAuthWall(async ({ email }) =
       admin.firestore().collection('studies').doc(id).get()
     )
   );
-  return mostInterestedStudyDocumentSnapshots.map((it) => ({ ...it.data(), id: it.id }));
+  return mostInterestedStudyDocumentSnapshots.map(
+    (it) => ({ ...it.data(), id: it.id } as AppStudy)
+  );
 });
 
 const createDocumentListenerFunctionForInterestVectorComputation = (
