@@ -45,9 +45,6 @@ const App = (props: AppProps): ReactElement => {
                   </Link>
                 </div>
                 <div className="navbar__items navbar__items--right">
-                  <Link href="/studies">
-                    <a className="navbar__brand">Studies</a>
-                  </Link>
                   <Link href="/create-study">
                     <a className="navbar__brand">Create Study</a>
                   </Link>
