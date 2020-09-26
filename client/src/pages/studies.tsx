@@ -1,15 +1,19 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 
 import LoadingRing from '../components/LoadingRing';
-import StudyCard from '../components/StudyCard';
+import { SchedulableStudyCard, EditableStudyCard } from '../components/StudyCard';
 import firebase from '../fbConfig';
 import { useUser } from '../hooks/user';
 import styles from './studies.module.css';
 
 const StudiesPage = (): ReactElement => {
   const { email: owner } = useUser();
-  const [trendingStudies, setTrendingStudies] = useState<readonly AppStudy[] | undefined>();
-  const [interestedStudies, setInterestedStudies] = useState<readonly AppStudy[] | undefined>();
+  const [trendingStudies, setTrendingStudies] = useState<
+    readonly AppStudyWithOccupiedTimes[] | undefined
+  >();
+  const [interestedStudies, setInterestedStudies] = useState<
+    readonly AppStudyWithOccupiedTimes[] | undefined
+  >();
   const [myStudies, setMyStudies] = useState<readonly AppStudy[] | undefined>();
 
   useEffect(() => {
@@ -38,7 +42,7 @@ const StudiesPage = (): ReactElement => {
           {trendingStudies.map((study) => {
             return (
               <div key={study.id}>
-                <StudyCard type="schedulable" study={study} />
+                <SchedulableStudyCard study={study} />
               </div>
             );
           })}
@@ -52,7 +56,7 @@ const StudiesPage = (): ReactElement => {
           {interestedStudies.map((study) => {
             return (
               <div key={study.id}>
-                <StudyCard type="schedulable" study={study} />
+                <SchedulableStudyCard study={study} />
               </div>
             );
           })}
@@ -66,7 +70,7 @@ const StudiesPage = (): ReactElement => {
           {myStudies.map((study) => {
             return (
               <div key={study.id}>
-                <StudyCard type="editable" study={study} />
+                <EditableStudyCard study={study} />
               </div>
             );
           })}
