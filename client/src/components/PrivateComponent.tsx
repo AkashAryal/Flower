@@ -1,7 +1,10 @@
 import React, { ReactElement, useState, useEffect } from 'react';
 
+import { useRouter } from 'next/router';
+
 import { signIn } from '../actions/auth-actions';
 import firebase from '../fbConfig';
+import useProfileFromFirestore from '../hooks/profile';
 import { useSetUser } from '../hooks/user';
 
 const Login = (): ReactElement => {
@@ -15,6 +18,27 @@ const Login = (): ReactElement => {
       {error && <p>{`Authentication Failed: ${error}`}</p>}
     </div>
   );
+};
+
+/** Prevent children from being rendered if profile is empty. */
+const OnboardingGuard = ({ children }: { readonly children: ReactElement }): ReactElement => {
+  const profile = useProfileFromFirestore();
+  const router = useRouter();
+
+  if (profile == null) return <div>Loading...</div>;
+  if (
+    router.asPath !== '/profile' &&
+    (profile.classYear.trim() === '' ||
+      profile.birthday.trim() === '' ||
+      profile.major.trim() === '' ||
+      profile.selfIntroduction.trim() === '' ||
+      profile.interests.length === 0 ||
+      profile.skills.length === 0)
+  ) {
+    router.push('/profile');
+    return <div>Redirecting</div>;
+  }
+  return children;
 };
 
 const PrivateComponent = ({ children }: { readonly children: ReactElement }): ReactElement => {
@@ -45,7 +69,7 @@ const PrivateComponent = ({ children }: { readonly children: ReactElement }): Re
   } else if (status === 'SIGNED_OUT') {
     return <Login />;
   } else {
-    return children;
+    return <OnboardingGuard>{children}</OnboardingGuard>;
   }
 };
 
