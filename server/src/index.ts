@@ -3,6 +3,7 @@
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 
+import { cosineSimilarity, DocumentInterestVector } from './interest-vector';
 import computeInterestVector from './nlp-process';
 
 admin.initializeApp();
@@ -32,10 +33,43 @@ export const getTrending = createHttpsFunctionWithAuthWall(async () => {
   return snapshot.docs.map((it) => ({ ...it.data(), id: it.id }));
 });
 
-export const getInterested = createHttpsFunctionWithAuthWall(async () => {
-  // TODO: actually compute it according to interest vector.
-  const snapshot = await admin.firestore().collection('studies').get();
-  return snapshot.docs.map((it) => ({ ...it.data(), id: it.id }));
+export const getInterested = createHttpsFunctionWithAuthWall(async ({ email }) => {
+  const userInterestVectorSnapshot = await admin
+    .firestore()
+    .collection('profile-interest-vector')
+    .doc(email)
+    .get();
+  if (!userInterestVectorSnapshot.exists) {
+    const snapshot = await admin.firestore().collection('studies').limit(5).get();
+    return snapshot.docs.map((it) => ({ ...it.data(), id: it.id }));
+  }
+  const userInterestVector = userInterestVectorSnapshot.data() as DocumentInterestVector;
+  const studiesInterestVectorsSnapshot = await admin
+    .firestore()
+    .collection('studies-interest-vector')
+    .get();
+  const interestVectorSimilaritySortedInDescendingOrder = studiesInterestVectorsSnapshot.docs
+    .map(
+      (document) =>
+        [
+          document.id,
+          cosineSimilarity(userInterestVector, document.data() as DocumentInterestVector),
+        ] as const
+    )
+    .sort(([, s1], [, s2]) => s2 - s1)
+    .slice(0, 5);
+  console.log(
+    `id => cos similarity with ${email}: [${interestVectorSimilaritySortedInDescendingOrder
+      .map(([id, similarity]) => `${id}: ${similarity}`)
+      .join(', ')}]`
+  );
+
+  const mostInterestedStudyDocumentSnapshots = await Promise.all(
+    interestVectorSimilaritySortedInDescendingOrder.map(([id]) =>
+      admin.firestore().collection('studies').doc(id).get()
+    )
+  );
+  return mostInterestedStudyDocumentSnapshots.map((it) => ({ ...it.data(), id: it.id }));
 });
 
 export const getUserNameForTesting = createHttpsFunctionWithAuthWall(async (user) => user);

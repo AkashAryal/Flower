@@ -8,12 +8,17 @@ const HomePage = (): ReactElement => {
   const [basicUserInformation, setBasicUserInformation] = useState<
     { readonly name: string; readonly email: string } | undefined
   >();
+  const [interestedStudies, setInterestedStudies] = useState<readonly AppStudy[] | undefined>();
 
   useEffect(() => {
     firebase
       .functions()
       .httpsCallable('getUserNameForTesting')()
       .then((r) => setBasicUserInformation(r.data));
+    firebase
+      .functions()
+      .httpsCallable('getInterested')()
+      .then((r) => setInterestedStudies(r.data));
   }, []);
 
   return (
@@ -29,6 +34,17 @@ const HomePage = (): ReactElement => {
         <div>
           <i>According to backend,</i> you are {basicUserInformation.name} with email:{' '}
           {basicUserInformation.email}.
+        </div>
+      )}
+      {interestedStudies && (
+        <div>
+          <h3>Studies you might be interested in</h3>
+          {interestedStudies.map((it) => (
+            <div key={it.id}>
+              <div>{it.projectName}</div>
+              <div>{it.description}</div>
+            </div>
+          ))}
         </div>
       )}
     </div>
