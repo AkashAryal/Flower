@@ -1,0 +1,10 @@
+.StudiesSectionHeader {
+  margin: 1em 0;
+  text-align: center;
+}
+
+.StudiesContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
