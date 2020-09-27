@@ -27,7 +27,7 @@ const App = (props: AppProps): ReactElement => {
       <Head>
         <meta charSet="utf-8" />
         <link rel="shortcut icon" href="https://developersam.com/favicon.ico" />
-        <title>Flower</title>
+        <title>UniFY</title>
         <script
           type="text/javascript"
           // eslint-disable-next-line react/no-danger
@@ -41,7 +41,7 @@ const App = (props: AppProps): ReactElement => {
               <div className="navbar__inner">
                 <div className="navbar__items">
                   <Link href="/">
-                    <a className="navbar__brand">Flower</a>
+                    <a className="navbar__brand">UniFY</a>
                   </Link>
                 </div>
                 <div className="navbar__items navbar__items--right">
